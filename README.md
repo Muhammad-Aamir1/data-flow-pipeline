@@ -9,12 +9,12 @@ This repository hosts the code and configuration for a serverless ETL (Extract, 
 The pipeline ingests raw CSV employee data from Google Cloud Storage, transforms it using a JavaScript User-Defined Function (UDF), and loads the clean data into **BigQuery** for analysis.
 
 ## 🚀 Architecture
-1.  **Source:** `employee.csv` stored in a GCS Bucket.
-2.  **Processing:** Dataflow job (using the Google-provided `GCS_Text_to_BigQuery` template).
+1. **Source:** `employee.csv` stored in a GCS Bucket.
+2. **Processing:** Dataflow job (using the Google-provided `GCS_Text_to_BigQuery` template).
     * **Cleaning:** Filters out header rows and empty lines.
     * **Transformation:** Maps CSV columns to JSON objects via `udf.js`.
     * **Typing:** Casts strings to `INTEGER` and `DATE` formats.
-3.  **Sink:** BigQuery Table (`df_demo.employees`).
+3. **Sink:** BigQuery Table (`df_demo.employees`).
 
 ---
 
@@ -45,14 +45,14 @@ export PROJECT_ID="your-project-id"
 export BUCKET_NAME="your-bucket-name"
 export REGION="us-central1"
 
-**Step 2: Upload Files to GCS**
+
+###Step 2: Upload Files to GCS
 
 Bash
 gsutil cp schemas/bq.json gs://$BUCKET_NAME/schemas/
 gsutil cp scripts/udf.js gs://$BUCKET_NAME/scripts/
 gsutil cp data/employee.csv gs://$BUCKET_NAME/data/
-
-**Step 3: Create BigQuery Dataset**
+Step 3: Create BigQuery Dataset
 
 Bash
 bq --location=US mk -d $PROJECT_ID:df_demo
@@ -63,10 +63,23 @@ gcloud dataflow jobs run "import-employees-$(date +%Y%m%d-%H%M%S)" \
     --gcs-location gs://dataflow-templates/latest/GCS_Text_to_BigQuery \
     --region $REGION \
     --parameters \
-
 javascriptTextTransformFunctionName="process",\
 JSONPath="gs://$BUCKET_NAME/schemas/bq.json",\
 javascriptTextTransformGcsPath="gs://$BUCKET_NAME/scripts/udf.js",\
 inputFile="gs://$BUCKET_NAME/data/employee.csv",\
 outputTable="$PROJECT_ID:df_demo.employees",\
 bigQueryLoadingTemporaryDirectory="gs://$BUCKET_NAME/temp/"
+📊 Analytics Goals
+Once the data is loaded, you can run SQL queries in BigQuery to answer questions like:
+
+What is the average salary per department?
+
+Who joined the Engineering team after 2022?
+
+Example Query:
+
+SQL
+SELECT department, AVG(salary) as avg_salary
+FROM `your-project-id.df_demo.employees`
+GROUP BY department
+ORDER BY avg_salary DESC;
