@@ -1,29 +1,46 @@
-# GCP Dataflow ETL Pipeline Demo
+# 🌊 Serverless ETL Pipeline: GCS to BigQuery using Dataflow
 
-This project demonstrates a serverless ETL pipeline on Google Cloud Platform using **Dataflow (Apache Beam)**. It reads a CSV file from Cloud Storage, transforms the data using a JavaScript UDF, and loads it into BigQuery.
+![GCP Dataflow](https://img.shields.io/badge/Google_Cloud-Dataflow-blue?logo=google-cloud&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Active-success)
+
+## 📖 Overview
+This repository hosts the code and configuration for a serverless ETL (Extract, Transform, Load) pipeline built on **Google Cloud Dataflow (Apache Beam)**.
+
+The pipeline ingests raw CSV employee data from Google Cloud Storage, transforms it using a JavaScript User-Defined Function (UDF), and loads the clean data into **BigQuery** for analysis.
 
 ## 🚀 Architecture
-1. **Source**: CSV files in Google Cloud Storage.
-2. **Transformation**: Dataflow Job (using Google-provided Template).
-   - Filters header rows.
-   - Maps CSV columns to JSON.
-   - Types casting (String -> Integer/Date).
-3. **Sink**: BigQuery Table.
+1.  **Source:** `employee.csv` stored in a GCS Bucket.
+2.  **Processing:** Dataflow job (using the Google-provided `GCS_Text_to_BigQuery` template).
+    * **Cleaning:** Filters out header rows and empty lines.
+    * **Transformation:** Maps CSV columns to JSON objects via `udf.js`.
+    * **Typing:** Casts strings to `INTEGER` and `DATE` formats.
+3.  **Sink:** BigQuery Table (`df_demo.employees`).
 
-## 🛠️ Prerequisites
-* Google Cloud Platform Account
-* `gcloud` CLI installed
-* Python 3.8+
+---
 
-## 📂 Project Structure
-* `scripts/udf.js`: JavaScript logic to parse CSV lines to JSON objects.
-* `schemas/bq_schema.json`: The target BigQuery table schema.
-* `data/`: Sample data for local testing.
+## 📂 Repository Structure
+| File | Description |
+| :--- | :--- |
+| `data/employee.csv` | Sample raw data containing employee details (ID, Name, Dept, Salary, etc.). |
+| `schemas/bq.json` | JSON schema defining the target BigQuery table structure. |
+| `scripts/udf.js` | JavaScript logic used by Dataflow workers to parse and transform the raw text. |
 
-## 🏃‍♂️ How to Run
+---
 
-### 1. Setup Environment
+## 🛠️ Setup & Execution
+
+### 1. Prerequisites
+* A Google Cloud Platform Project.
+* **APIs Enabled:** Dataflow API, Compute Engine API, BigQuery API, Cloud Storage.
+* **Service Account Permissions:**
+    * `roles/dataflow.worker`
+    * `roles/bigquery.dataEditor`
+    * `roles/storage.objectAdmin`
+
+### 2. Deployment Steps
+
+**Step 1: Set Variables**
 ```bash
-# Set your project ID
-export PROJECT_ID=your-project-id
-export BUCKET_NAME=your-bucket-name
+export PROJECT_ID="your-project-id"
+export BUCKET_NAME="your-bucket-name"
+export REGION="us-central1"
