@@ -83,3 +83,33 @@ SELECT department, AVG(salary) as avg_salary
 FROM `your-project-id.df_demo.employees`
 GROUP BY department
 ORDER BY avg_salary DESC;
+
+
+Queries to test
+-- Query for employees not in New York
+SELECT *
+FROM `test-project2-409608.df_demo.emplyee-data`
+WHERE location != 'New York'
+LIMIT 1000;
+
+
+-- Query for employees in New York or London
+SELECT *
+FROM `test-project2-409608.df_demo.emplyee-data`
+WHERE location IN ('New York', 'London')
+LIMIT 1000;
+
+
+-- Count of employees in each location
+SELECT location, COUNT(*) as employee_count
+FROM `test-project2-409608.df_demo.emplyee-data`
+GROUP BY location
+ORDER BY employee_count DESC;
+
+
+SELECT *
+FROM `test-project2-409608.df_demo.emplyee-data`
+WHERE location = 'London'
+LIMIT 1000
+
+
