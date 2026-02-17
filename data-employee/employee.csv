@@ -1,0 +1,21 @@
+id,first_name,last_name,email,department,joining_date,salary,location
+1,James,Smith,j.smith@example.com,Engineering,2023-01-15,120000,New York
+2,Maria,Garcia,m.garcia@example.com,Sales,2022-11-23,85000,London
+3,Robert,Johnson,r.johnson@example.com,Engineering,2021-05-10,125000,San Francisco
+4,Linda,Martinez,l.martinez@example.com,HR,2023-03-01,70000,New York
+5,Michael,Brown,m.brown@example.com,Marketing,2020-08-19,95000,London
+6,Elizabeth,Davis,e.davis@example.com,Engineering,2022-02-14,115000,San Francisco
+7,William,Rodriguez,w.rodriguez@example.com,Sales,2023-06-21,82000,New York
+8,Jennifer,Wilson,j.wilson@example.com,Finance,2019-12-05,105000,London
+9,David,Anderson,d.anderson@example.com,Engineering,2021-09-30,130000,San Francisco
+10,Susan,Thomas,s.thomas@example.com,HR,2022-07-07,72000,New York
+11,Joseph,Jackson,j.jackson@example.com,Marketing,2023-04-12,92000,London
+12,Margaret,White,m.white@example.com,Finance,2020-03-22,108000,San Francisco
+13,Charles,Harris,c.harris@example.com,Sales,2021-11-09,87000,New York
+14,Sarah,Martin,s.martin@example.com,Engineering,2023-08-01,118000,London
+15,Thomas,Thompson,t.thompson@example.com,Marketing,2019-06-15,96000,San Francisco
+16,Jessica,Garcia,j.garcia2@example.com,HR,2022-10-30,71000,New York
+17,Christopher,Martinez,c.martinez@example.com,Engineering,2020-01-25,122000,London
+18,Karen,Robinson,k.robinson@example.com,Sales,2023-05-18,84000,San Francisco
+19,Daniel,Clark,d.clark@example.com,Finance,2021-02-11,102000,New York
+20,Nancy,Rodriguez,n.rodriguez@example.com,Engineering,2022-04-05,128000,London
