@@ -45,14 +45,14 @@ export PROJECT_ID="your-project-id"
 export BUCKET_NAME="your-bucket-name"
 export REGION="us-central1"
 
-Step 2: Upload Files to GCS
+**Step 2: Upload Files to GCS**
 
 Bash
 gsutil cp schemas/bq.json gs://$BUCKET_NAME/schemas/
 gsutil cp scripts/udf.js gs://$BUCKET_NAME/scripts/
 gsutil cp data/employee.csv gs://$BUCKET_NAME/data/
 
-Step 3: Create BigQuery Dataset
+**Step 3: Create BigQuery Dataset**
 
 Bash
 bq --location=US mk -d $PROJECT_ID:df_demo
@@ -63,6 +63,7 @@ gcloud dataflow jobs run "import-employees-$(date +%Y%m%d-%H%M%S)" \
     --gcs-location gs://dataflow-templates/latest/GCS_Text_to_BigQuery \
     --region $REGION \
     --parameters \
+
 javascriptTextTransformFunctionName="process",\
 JSONPath="gs://$BUCKET_NAME/schemas/bq.json",\
 javascriptTextTransformGcsPath="gs://$BUCKET_NAME/scripts/udf.js",\
